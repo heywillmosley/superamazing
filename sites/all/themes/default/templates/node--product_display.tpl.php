@@ -80,19 +80,18 @@
  * @ingroup themeable
  */
 ?>
-
 <div id="node-<?php print $node->nid; ?>" class="specs <?php print $classes; ?> clearfix"<?php print $attributes; ?> >
 		<div class="specs-wrapper">
 				<div class="specs-banner"></div>
 				<div class="specs-info">
 						<div class="specs-cover-container">
 								<!--<img class="specs-cover-image" src="path/to/image" alt="" /> -->
-								<?php print render($content['product:field_images']) ?>
+								<?php print render($content['field_image']) ?>
 						</div><!-- end specs-cover-container -->
 						<div class="specs-info-container">
 								<div>
 										<div class="specs-document-title"><?php print render($content['title_field']) ?></div>
-										<div class="specs-document-subtitle" style="color: #000 !important;"><?php print render($content['body']) ?></div>
+										<div class="specs-document-subtitle" style="color: #000 !important;"><?php print render($content['field_details']) ?></div>
 								</div>
 								<div class="specs-actions">
 										<a href="/start/project" class="btn btn-success"><i class="fa fa-bolt"></i> Start Project</a>
@@ -102,6 +101,6 @@
 		</div><!-- end specs-wrapper -->
 		<div class="specs-section-divider"></div>
 		<div class="specs-wrapper">
-				...
+				<?php print render($content['body']) ?>
 		</div><!-- end specs-wrapper -->
 </div><!-- end specs -->
