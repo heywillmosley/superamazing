@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -13,6 +12,8 @@
  *   form_alter hooks.
  *
  * @see template_preprocess_poll_vote()
+ *
+ * @ingroup themeable
  */
 ?>
 <div class="poll">

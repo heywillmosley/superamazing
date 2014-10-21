@@ -1,4 +1,8 @@
-// $Id$
+
+/**
+ * @file
+ * Attaches behaviors for the Path module.
+ */
 
 (function ($) {
 

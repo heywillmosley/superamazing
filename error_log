@@ -1,0 +1,8 @@
+[17-Oct-2014 07:05:17 America/New_York] PHP Parse error:  syntax error, unexpected '=' in /home2/wmosley/superamazing_dev/modules/php/php.module(80) : eval()'d code on line 336
+[17-Oct-2014 08:15:43 America/New_York] PHP Parse error:  syntax error, unexpected '=' in /home2/wmosley/superamazing_dev/modules/php/php.module(80) : eval()'d code on line 336
+[18-Oct-2014 08:30:50 America/New_York] PHP Fatal error:  Cannot redeclare time_running_out() (previously declared in /home2/wmosley/superamazing_dev/modules/php/php.module(80) : eval()'d code:334) in /home2/wmosley/superamazing_dev/modules/php/php.module(80) : eval()'d code on line 351
+[18-Oct-2014 14:41:02 America/New_York] PHP Notice:  Use of undefined constant STDERR - assumed 'STDERR' in /home2/wmosley/drush/includes/drush.inc on line 1596
+[18-Oct-2014 14:41:02 America/New_York] PHP Warning:  fwrite() expects parameter 1 to be resource, string given in /home2/wmosley/drush/includes/output.inc on line 35
+[18-Oct-2014 14:41:22 America/New_York] PHP Notice:  Use of undefined constant STDERR - assumed 'STDERR' in /home2/wmosley/drush/includes/drush.inc on line 1596
+[18-Oct-2014 14:41:22 America/New_York] PHP Warning:  fwrite() expects parameter 1 to be resource, string given in /home2/wmosley/drush/includes/output.inc on line 35
+[18-Oct-2014 14:44:56 America/New_York] PHP Parse error:  syntax error, unexpected '=' in /home2/wmosley/superamazing_dev/modules/php/php.module(80) : eval()'d code on line 336

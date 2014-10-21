@@ -1,3 +1,6 @@
 <?php
-// $Id$
+/**
+ * @file
+ * Installation profile for tests.
+ */
 

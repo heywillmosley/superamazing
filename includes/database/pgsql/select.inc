@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -7,7 +6,7 @@
  */
 
 /**
- * @ingroup database
+ * @addtogroup database
  * @{
  */
 
@@ -104,6 +103,6 @@ class SelectQuery_pgsql extends SelectQuery {
 }
 
 /**
- * @} End of "ingroup database".
+ * @} End of "addtogroup database".
  */
 

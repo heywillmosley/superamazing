@@ -1,0 +1,16 @@
+diff --git a/form_placeholder/form_placeholder.js b/form_placeholder/form_placeholder.js
+index 014b398..899c18e 100644
+--- a/form_placeholder/form_placeholder.js
++++ b/form_placeholder/form_placeholder.js
+@@ -10,6 +10,11 @@
+ 
+   Drupal.behaviors.form_placeholder = {
+     attach: function(context, settings) {
++      if (typeof settings.form_placeholder == 'undefined') {
++        console.log('Error: form_placeholder settings are not set. See https://www.drupal.org/node/2313523');
++        return;
++      }
++
+       var include = settings.form_placeholder.include;
+       if (include) {
+         include += ', ';

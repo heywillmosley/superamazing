@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -20,6 +19,8 @@
  *
  * @see template_preprocess()
  * @see template_preprocess_toolbar()
+ *
+ * @ingroup themeable
  */
 ?>
 <div id="toolbar" class="<?php print $classes; ?> clearfix">

@@ -1,10 +1,8 @@
 <?php
-// $Id$
 
 /**
  * @file
- * Dummy module implementing node related hooks to test API interaction with
- * the Node module.
+ * A module implementing node related hooks to test API interaction.
  */
 
 /**
