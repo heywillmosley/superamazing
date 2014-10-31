@@ -22,8 +22,8 @@ function default_preprocess_html(&$variables) {
 	drupal_add_css('//codepen.io/williammosley/pen/yDhxI.css', array('type' => 'external'));
 	drupal_add_css('//fonts.googleapis.com/css?family=Nixie+One', array('type' => 'external'));
 	drupal_add_css(drupal_get_path('theme', 'superamazing') .'/css/style.css');
-	drupal_add_js(drupal_get_path('theme', 'superamazing') .'/js/jquery.sticky.js');
 	drupal_add_js('//checkout.stripe.com/checkout.js', array('type' => 'external'));
+	drupal_add_js(drupal_get_path('theme', 'default') .'/js/default.js');
 }
 
 /**
