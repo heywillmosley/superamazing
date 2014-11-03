@@ -141,3 +141,11 @@ DirectoryIndex index.php index.html index.htm
     </FilesMatch>
   </IfModule>
 </IfModule>
+
+RewriteCond %{HTTP_HOST} ^superamazingishere\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.superamazingishere\.com$
+RewriteRule ^startups$ "http\:\/\/superamazingishere\.com\/start" [R=301,L]
+
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^superamazingishere\.com*
+RewriteRule ^(.*)$ https://www.superamazingishere.com/$1 [L,R=301]

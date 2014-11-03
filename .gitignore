@@ -1,2 +1,17 @@
 # Ignore configuration files that may contain sensitive information.
 sites/*/*settings*.php
+
+# Drupal #
+##########
+sites/default/files (or an alternative location to files, like /files for D5 sites)
+sites/all/files
+files
+cache 
+backup
+
+# OS Generated #
+################
+.DS_Store?
+Thumbs.db
+*~*
+*.swp 
