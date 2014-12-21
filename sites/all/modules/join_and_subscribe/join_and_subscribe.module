@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+</html><style>
+.atm-no-label label {
+  display: none;
+}
+</style>
+<?php // see http://zerotodrupal.com/content/creating-form-block-drupal-7 for block implementation
+// Mailchimp library
+require_once('./sites/all/libraries/mailchimp-api/src/Drewm/MailChimp.php');
+
+function join_and_subscribe_block_info() {
+	
+	// Create an array that will hold our blocks
+	$blocks = array();
+	
+	/**
+	 * Create a key in our $blocks array that
+	 * defines our block. Note that the key in
+	 * this array can be anything. For this
+	 * block, we'll use 'join_and_subscribe_form'.
+	 */
+	 $blocks['join_and_subscribe_form'] = array(
+	 	'info' => t('Join and Subscribe'), // What you'll see when viewing from admin page
+		'cache' => DRUPAL_CACHE_GLOBAL, // How this block witll be cached
+	 );
+	 
+	 return $blocks;
+	
+} // join_andsubscribe_block_info()
+
+
+/**
+ * Implements hook_block_view().
+ *
+ * This function tells drupal how to define our block when viewed.
+ *
+ * For more information on this function, see:
+ * http://api.drupal.org/api/drupal/modules block block.api.php/function/hook_block_view/7
+ */
+function join_and_subscribe_block_view( $delta = '' ) {
+	 // Create an array that will be returned as our block
+	 $block = array();
+	 
+	 /**
+	  * Since hook_block_view is called for every block,
+		* Drupal passes in $delta (the key of the blocks defined
+		* in hook_block_info. In our case, we're checking for
+		* $delta  to be 'join_and_subscribe_form'.
+		*/
+		switch( $delta ) {
+			
+			case 'join_and_subscribe_form' :
+				$block['subject'] = t('Join and Subscribe');
+				
+				// Use drupal_get_form to return a drupal-built form.
+				$block['content'] = drupal_get_form('join_and_subscribe_form');
+				
+			break;
+			
+		} // end switch
+		
+		return $block;
+	 
+	 
+} // end function join_and_subscribe_block_view( $delta = '' )
+
+
+/**
+ * Basic Form
+ */
+function join_and_subscribe_form( $form, &$form_state ) {
+	
+	$form['#attributes'] = array(
+		'class' => 'pure-form pure-g atm-no-label',
+	);
+	
+	$form['mail'] = array(
+		'#title' => 'email',
+		'#type' => 'textfield',
+		'#required' => TRUE,
+		'#attributes' =>array('placeholder' => t('Enter your email')),
+	);
+	
+	/*$form['username'] = array(
+		'#title' => 'username',
+		'#type' => 'textfield',
+		'#required' => TRUE,
+		'#attributes' =>array('placeholder' => t('Choose a Username')),
+	);*/
+	
+	$form['pass'] = array(
+		'#title' => 'password',
+		'#type' => 'password',
+		'#required' => TRUE,
+		'#attributes' =>array('placeholder' => t('Choose a Password')),
+	);
+	
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => t('JOIN'),
+		'#attributes' => array('class' => array('btn btn-success btn-block')),
+	);
+	
+	return $form;
+	
+} // end function join_and_subscribe_form( $form, &$form_state )
+
+
+function join_and_subscribe_form_alter(&$form, &$form_state){
+	$form['#prefix'] = '<div id="atm-pop-join" class="atm-pop">
+  <div class="atm-pop-content">
+    <a href="#" class="atm-close"></a>
+    <h1>Join Company</h1>
+    <p class="atm-t-intro">450+ Courses. Secure Transactions. Unbeatable Value.</p>';
+	$form['#suffix'] = '<div class="atm-caption atm-caption-gray mbm">By joining I agree to recieve emails from King Bio.</div>
+    <div class="atm-snote">Already a member? <a class="atm-pop-next" href="#" onclick="atmPopNext("atm-pop-login")">Sign In</a></div>
+  </div><!-- end atm-pop-content -->
+</div>';
+}
+
+
+/**
+ * Basic Form Validation
+ */
+function join_and_subscribe_form_validate( $form, &$form_state ) {
+	
+	$mail = $form_state['values']['mail'];
+	//$username = $form_state['values']['username'];
+	$pass = $form_state['values']['pass'];
+	
+	// Valid Email Check
+	if( !valid_email_address($form_state['values']['mail'] ) ) {
+		
+		form_set_error( 'mail', t("The e-mail address $mail is not valid.") );
+		
+	} // end if
+	
+	// Check if Email Exists in Database
+  if (db_query("SELECT COUNT(*) FROM {users} WHERE mail = :mail;", array(':mail' => $mail))->fetchField()) {
+		
+		form_set_error( 'mail', t("Someone already has that email. Try another? Or <a href='#' id='atm-login-pop-trigger'>Login</a>.") );
+   }
+	 
+	 else { // Subscribe to Mailchimp list
+	 
+	 	$mc_api = 'ca2dbbbd8fd369e198173fadb0549684-us4';
+		$mc_list = 'c5297b90ac';
+	
+		$MailChimp = new MailChimp($mc_api);
+		
+		// Get Email count from list
+		$list_result = $MailChimp->call('lists/member-info', array (
+				'api' => $mc_api, 
+				'id' => $mc_list,
+				'emails' => array(
+					0 => array(
+						'email' => $mail,
+					),
+				),
+			));
+			
+			// If not in mailchimp db, subscribe
+			if( $list_result['success_count'] == 0 ) {
+				
+				$MailChimp->call('lists/subscribe', array(
+                'id'                => $mc_list,
+                'email'             => array('email'=> $mail),
+                'double_optin'      => false,
+                'update_existing'   => true,
+                'replace_interests' => false,
+                'send_welcome'      => false,
+            ));
+				
+			} // end if
+			
+			
+			
+		
+		
+	} // end else
+	
+	// Valid Username
+	/*if( user_validate_name($form_state['values']['username'] ) ) {
+		
+		$username_error = user_validate_name($form_state['values']['username']);
+		form_set_error( 'username', t($username_error) );
+		
+	} // end if*/
+	
+	
+	// Check if Username Exists in Database
+  /*if (db_query("SELECT COUNT(*) FROM {users} WHERE name = :username;", array(':username' => $username))->fetchField()) {
+		
+		form_set_error( 'username', t("Someone already has that username. Try another? Or <a href='#' id='atm-login-pop-trigger'>Login</a>.") );
+   }*/
+	 
+	 /**
+	 	* Strong Password
+		*
+		* @todo Better password validation solution - check common passes, etc
+		*/
+		$pwd = $pass;
+
+		if( strlen($pwd) < 8 ) {
+			form_set_error( 'pass', t('Password too short.') );
+		}
+		
+		if( strlen($pwd) > 20 ) {
+			form_set_error( 'pass', t('Password too long.') );
+		}
+		
+		if( !preg_match("#[0-9]+#", $pwd) ) {
+			form_set_error( 'pass', t('Password must include at least one number.') );
+		}
+		
+		
+		if( !preg_match("#[a-z]+#", $pwd) ) {
+			form_set_error( 'pass', t('Password must include at least one letter.') );
+		}
+		
+		
+		if( !preg_match("#[A-Z]+#", $pwd) ) {
+			form_set_error( 'pass', t('Password must include at least one CAPS.') );
+		}
+
+		if( !preg_match("#\W+#", $pwd) ) {
+			form_set_error( 'pass', t('Password must include at least one symbol.') );
+		}
+	
+	
+} // end function join_and_subscribe_validate) $form, &$form_state )
+
+
+/**
+ * Basic Form Submit
+ */
+function join_and_subscribe_form_submit( $form, &$form_state ) {
+	
+	$edit = array(
+		'name' => $form_state['values']['mail'],
+		'pass' => $form_state['values']['pass'],
+		'mail' => $form_state['values']['mail'],
+		'init' => $form_state['values']['mail'],
+		'status' => 1,
+		'access' => REQUEST_TIME,
+	);
+	user_save(drupal_anonymous_user(), $edit);
+	
+	// Log user in
+	$userRecord = user_authenticate($form_state['values']['mail'], $form_state['values']['pass']);
+	$form_state['uid'] = $userRecord; 
+	user_login_submit(array(), $form_state); 
+	
+	// Redirect to correct url
+	$destination = drupal_get_destination();
+	$destination = $destination['destination'];
+	
+	$start = '?start';
+	$pro = '?pro';
+
+
+	if( strpos($destination, $pro ) ) {
+		
+		$form_state['redirect'] = current_path();
+		
+		drupal_set_message(t('Welcome to Company. You\'ll find exclusive content to help grow your business below.'));
+		
+	} else {
+		
+		$form_state['redirect'] = 'start';
+		
+		drupal_set_message(t('Welcome to Company. Start your first project below.'));
+		
+	} // end else
+	
+  
+	
+} // end function join_and_subscribe_submit) $form, &$form_state )
+

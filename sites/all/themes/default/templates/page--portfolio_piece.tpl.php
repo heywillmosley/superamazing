@@ -73,6 +73,10 @@
  */
 ?>
 <?php print render($page['styles_js']); ?>
+<?php print $messages; ?>
+<?php if ( $user->uid ) : ?>
+  <div class="sa-vip-border"></div>
+<?php endif; ?>
 <?php $e->get_header($page); ?>
 <div class="atm-l-ps">
 	<div class="pure-g cf">
@@ -84,7 +88,6 @@
 		<?php endif; ?>
 		<?php print render($page['help']); ?>
 		<?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
-		<?php print $messages; ?>
 		<?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
 		<?php print render($page['content']); ?>
 		<?php $e->get_footer($page); ?>

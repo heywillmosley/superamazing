@@ -1,0 +1,5 @@
+name = "Join and Subscribe"
+core = "7.x"
+description = "Register new user and subscribe them to specified Mailchimp list."
+version = "0.1"
+package = Forms

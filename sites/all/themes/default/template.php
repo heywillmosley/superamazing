@@ -19,11 +19,12 @@ function default_preprocess_html(&$variables) {
 	drupal_add_css('//cdn.jsdelivr.net/pure/0.5.0/grids-responsive.css', array('type' => 'external'));
 	drupal_add_css('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', array('type' => 'external'));
 	drupal_add_css('//codepen.io/williammosley/pen/yDfGm.css', array('type' => 'external'));
-	drupal_add_css('//codepen.io/williammosley/pen/yDhxI.css', array('type' => 'external'));
+	drupal_add_css('//codepen.io/williammosley/pen/bNdXKP.css', array('type' => 'external'));
 	drupal_add_css('//fonts.googleapis.com/css?family=Nixie+One', array('type' => 'external'));
 	drupal_add_css(drupal_get_path('theme', 'superamazing') .'/css/style.css');
 	drupal_add_js('//checkout.stripe.com/checkout.js', array('type' => 'external'));
 	drupal_add_js(drupal_get_path('theme', 'default') .'/js/default.js');
+	drupal_add_js('//codepen.io/williammosley/pen/bNdXKP.js', array('type' => 'external'));
 }
 
 /**

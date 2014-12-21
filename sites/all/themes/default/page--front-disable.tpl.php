@@ -74,22 +74,19 @@
 ?>
 <?php print render($page['styles_js']); ?>
 <?php $e->get_header($page); ?>
-<div class="side-left">
-	<?php print render($page['sidebar_first']); ?>
-</div><!-- end side-left -->
-<div class="page-w1200" style="margin-top: 50px;">
-<?php print $breadcrumb; ?>
-<?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-<?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-<?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
+<div class="atm-l-ps">
+	<?php print render($page['admin_first']); ?>
+	<?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
+	<?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+	<?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
+	<?php print $messages; ?>
 	<?php print render($page['help']); ?>
-<?php print $messages; ?>
-<?php print render($title_prefix); ?>
-<?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
-<?php print render($title_suffix); ?>
+	<?php print render($page['promo_top']); ?>
+	<?php print render($title_prefix); ?>
+	<?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
+	<?php print render($title_suffix); ?>
+</div><!-- end atm-l-ps -->
 <?php print render($page['content']); ?>
 <?php print render($page['content_second_a']); ?>
 <?php print render($page['content_second_b']); ?>
-<?php print $feed_icons; ?>
 <?php $e->get_footer($page); ?>
-	</div><!-- end page-w1200 -->
