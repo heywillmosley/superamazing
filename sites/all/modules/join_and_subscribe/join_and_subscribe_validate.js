@@ -1,0 +1,1 @@
+$('#atm-pop-join').show();

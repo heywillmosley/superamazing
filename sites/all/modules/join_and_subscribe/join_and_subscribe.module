@@ -105,7 +105,7 @@ function join_and_subscribe_form( $form, &$form_state ) {
 	
 	$form['submit'] = array(
 		'#type' => 'submit',
-		'#value' => t('JOIN'),
+		'#value' => t('Join'),
 		'#attributes' => array('class' => array('btn btn-success btn-block')),
 	);
 	
@@ -115,12 +115,14 @@ function join_and_subscribe_form( $form, &$form_state ) {
 
 
 function join_and_subscribe_form_alter(&$form, &$form_state){
+//print_r($form);
+
 	$form['#prefix'] = '<div id="atm-pop-join" class="atm-pop">
   <div class="atm-pop-content">
     <a href="#" class="atm-close"></a>
-    <h1>Join Company</h1>
-    <p class="atm-t-intro">450+ Courses. Secure Transactions. Unbeatable Value.</p>';
-	$form['#suffix'] = '<div class="atm-caption atm-caption-gray mbm">By joining I agree to recieve emails from King Bio.</div>
+    <h1>Join Super Amazing</h1>
+    <p class="atm-t-intro">Grow Your Small Business Week-By-Week. Amazing Web Design. Unbeatable Value.</p>';
+	$form['#suffix'] = '<div class="atm-caption atm-caption-gray mbm">By joining I agree to recieve emails from Super Amazing.</div>
     <div class="atm-snote">Already a member? <a class="atm-pop-next" href="#" onclick="atmPopNext("atm-pop-login")">Sign In</a></div>
   </div><!-- end atm-pop-content -->
 </div>';
@@ -131,6 +133,19 @@ function join_and_subscribe_form_alter(&$form, &$form_state){
  * Basic Form Validation
  */
 function join_and_subscribe_form_validate( $form, &$form_state ) {
+
+// Get the path to the module
+$path = drupal_get_path('module', 'join_and_subscribe');
+// Attach the CSS and JS to the form
+$form['#attached'] = array
+(
+	'js' => array
+	(
+		'type' => 'file',
+		'data' => $path . '/join_and_subscribe_validate.js',
+	),
+);
+
 	
 	$mail = $form_state['values']['mail'];
 	//$username = $form_state['values']['username'];
@@ -284,4 +299,3 @@ function join_and_subscribe_form_submit( $form, &$form_state ) {
   
 	
 } // end function join_and_subscribe_submit) $form, &$form_state )
-
